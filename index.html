@@ -1,7 +1,87 @@
+<!DOCTYPE html>
 <html>
-  <body background="green">
-    <h1>易老师最猥琐</h1>
-    <h1>szz第二</h1>
-    <span>后面没有了</span>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Hello World</title>
+		<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+		<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+
+		<!-- Don't use this in production: -->
+		<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script type="text/babel">
+			class Component extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      todos: ['devil', 'god', '02']
+    }
+  }
+  add = (value) => {
+    let todos = this.state.todos;
+    todos.unshift(value);
+    this.setState({ todos })
+  }
+  render() {
+    return (
+      <div>
+        <h2>Simple TODO List</h2>
+        <AddTodo add={this.add} length={this.state.todos.length}></AddTodo>
+        <TargetName todos={this.state.todos}></TargetName>
+      </div>
+    )
+  }
+}
+
+class AddTodo extends React.Component {
+  handleClick = () => {
+    let { value } = this.refs.input;
+    if (value.trim() === '') {
+      alert('输入不合法');
+      this.refs.input.value = '';
+      return;
+    }
+    this.props.add(value);
+    this.refs.input.value = '';
+  }
+  render() {
+    return (
+      <div>
+        <input ref='input' placeholder='请输入你想添加的名字'></input>
+        <button onClick={this.handleClick}>add #{this.props.length}</button>
+      </div>
+    )
+  }
+}
+
+class TargetName extends React.Component {
+  render() {
+    let todos = this.props.todos;
+    return (
+      <ul>
+        {
+        todos.map((value,index) => {return <li key={index}>{value}</li>})
+        }
+      </ul>
+    )
+  }
+}
+ReactDOM.render(<Component />, document.getElementById('root'));
+    </script>
+		<!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+	</body>
 </html>
