@@ -1,0 +1,8 @@
+{
+    "app":{
+        "name":"elouyi web",
+        "version":"test-0.0.0",
+        "developer":["pzz","yujj"],
+        "description":" Elouyi Studio official website"
+    }
+}
